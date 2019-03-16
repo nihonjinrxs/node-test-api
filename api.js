@@ -18,8 +18,17 @@ const port = 8080
 app.use(helmet())
 app.use(favicon(path.join('.', 'favicon.ico')))
 
-app.get('/', (req, res) => res.send("I'm alive"))
-app.get('/beacon', (req, res) => res.send('OK'))
-app.get('/ping', (req, res) => res.send('pong'))
+app.get('/', (req, res) => {
+  logger.info("ROOT endpoint called", { "req": req, "res": res })
+  res.send("I'm alive")
+})
+app.get('/beacon', (req, res) => {
+  logger.info("BEACON endpoint called", { "req": req, "res": res })
+  res.send('OK')
+})
+app.get('/ping', (req, res) => {
+  logger.info("PING endpoint called", { "req": req, "res": res })
+  res.send('pong')
+})
 
 app.listen(port, () => console.log(`Test API listening on port ${port}!`))
