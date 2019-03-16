@@ -19,17 +19,32 @@ app.use(helmet())
 app.use(favicon(path.join('.', 'favicon.ico')))
 
 app.get('/', (req, res) => {
-  logger.info({ "req": req, "res": res, "msg": "ROOT endpoint called" })
+  logger.info({
+    "req":     req,
+    "res":     res,
+    "message": "ROOT endpoint called"
+  })
   res.send("I'm alive")
 })
 app.get('/beacon', (req, res) => {
-  logger.info({ "req": req, "res": res, "msg": "BEACON endpoint called" })
+  logger.info({
+    "req":     req,
+    "res":     res, 
+    "message": "BEACON endpoint called"
+  })
   res.send('OK')
 })
 app.get('/ping', (req, res) => {
-  logger.info({ "req": req, "res": res, "msg": "PING endpoint called" })
+  logger.info({
+    "req":     req,
+    "res":     res,
+    "message": "PING endpoint called"
+  })
   res.send('pong')
 })
 
-app.listen(port, () => logger.info({ "msg": `Test API listening on port ${port}!`, "port": port }))
+app.listen(port, () => logger.info({
+  "message": "Test API listening on port " + port + "!",
+  "port":    port
+}))
 
