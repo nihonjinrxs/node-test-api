@@ -9,7 +9,7 @@ const blocked = require('blocked-at');
 const logger = require('./logger')('api-main');
 
 blocked((time, stack) => {
-  logger.warn(`Event loop blocked for ${time}ms. Stack trace at start included.`, stack)
+  logger.warn({ "warning": `Event loop blocked for ${time}ms. Stack trace at start included.`, "stack": stack })
 })
 
 const app = express()
@@ -19,16 +19,17 @@ app.use(helmet())
 app.use(favicon(path.join('.', 'favicon.ico')))
 
 app.get('/', (req, res) => {
-  logger.info("ROOT endpoint called", { "req": req, "res": res })
+  logger.info({ "req": req, "res": res, "msg": "ROOT endpoint called" })
   res.send("I'm alive")
 })
 app.get('/beacon', (req, res) => {
-  logger.info("BEACON endpoint called", { "req": req, "res": res })
+  logger.info({ "req": req, "res": res, "msg": "BEACON endpoint called" })
   res.send('OK')
 })
 app.get('/ping', (req, res) => {
-  logger.info("PING endpoint called", { "req": req, "res": res })
+  logger.info({ "req": req, "res": res, "msg": "PING endpoint called" })
   res.send('pong')
 })
 
-app.listen(port, () => console.log(`Test API listening on port ${port}!`))
+app.listen(port, () => logger.info({ "msg": `Test API listening on port ${port}!`, "port": port }))
+
